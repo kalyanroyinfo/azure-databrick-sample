@@ -71,6 +71,7 @@ customer_df_ingestDate.show()
  import org.apache.spark.sql.functions.{sha2,concat,col}
 val customer_df_final=customer_df_ingestDate.withColumn("customer_key", sha2(concat(col("member_id"),col("age"),col("state")), 256))
 display(customer_df_final)
+display(customer_df_final)
 
 // COMMAND ----------
 
