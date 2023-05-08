@@ -9,6 +9,11 @@ v_data_source=dbutils.widgets.get("p_data_source")
 
 # COMMAND ----------
 
+dbutils.widgets.text("p_file_date","")
+v_file_date=dbutils.widgets.get("p_file_date")
+
+# COMMAND ----------
+
 # MAGIC %run "../includes/configuration"
 
 # COMMAND ----------
@@ -30,7 +35,7 @@ races_schema=StructType(fields=[
 
 # COMMAND ----------
 
-races_df=spark.read.schema(races_schema).option("header",True).csv(f"{raw_folder_path}/races.csv")
+races_df=spark.read.schema(races_schema).option("header",True).csv(f"{raw_folder_path}/{v_file_date}/races.csv")
 
 # COMMAND ----------
 
@@ -61,7 +66,7 @@ races_renamed_df=races_selected_df.withColumnRenamed("raceId","race_id").withCol
 # COMMAND ----------
 
 from pyspark.sql.functions import current_timestamp,to_timestamp,concat,lit
-races_timestamp_df=races_renamed_df.withColumn("ingestion_date",current_timestamp()).withColumn("race_timestamp",to_timestamp(concat(col("date"),lit(" "),col("time")),'yyyy-MM-dd HH:mm:ss')).withColumn("data_source",lit(v_data_source))
+races_timestamp_df=races_renamed_df.withColumn("ingestion_date",current_timestamp()).withColumn("race_timestamp",to_timestamp(concat(col("date"),lit(" "),col("time")),'yyyy-MM-dd HH:mm:ss')).withColumn("data_source",lit(v_data_source)).withColumn("file_date",lit(v_file_date))
 
 # COMMAND ----------
 

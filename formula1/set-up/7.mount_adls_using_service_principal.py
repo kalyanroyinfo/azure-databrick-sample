@@ -8,10 +8,10 @@
 
 # COMMAND ----------
 
-storage_account_name="formula1krdl"
-client_id=dbutils.secrets.get("formula1-scope","formula1-client-id")
-tenant_id=dbutils.secrets.get("formula1-scope","formula1-tenant-id")
-client_secret=dbutils.secrets.get("formula1-scope","formula1-client-secret")
+client_id=dbutils.secrets.get("formula1kr1","formula1-client-id")
+tenant_id=dbutils.secrets.get("formula1kr1","formula1-tenant-id")
+client_secret=dbutils.secrets.get("formula1kr1","formula1-client-secret")
+storage_account_name='formula1krdl1'
 
 # COMMAND ----------
 
@@ -38,15 +38,15 @@ mount_adls("raw")
 
 # COMMAND ----------
 
-display(dbutils.fs.ls("dbfs:/mnt/formula1krdl"))
+display(dbutils.fs.ls(f"dbfs:/mnt/{storage_account_name}"))
 
 # COMMAND ----------
 
-display(dbutils.fs.ls("dbfs:/mnt/formula1krdl/"))
+display(dbutils.fs.ls(f"dbfs:/mnt/{storage_account_name}/"))
 
 # COMMAND ----------
 
-display(dbutils.fs.ls("dbfs:/mnt/formula1krdl/raw"))
+display(dbutils.fs.ls(f"dbfs:/mnt/{storage_account_name}/raw"))
 
 # COMMAND ----------
 
